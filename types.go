@@ -1331,11 +1331,17 @@ type ChatAdministratorRights struct {
 	CanManageTopics bool `json:"can_manage_topics"`
 }
 
-//  ----------------
-//  |              |
-//  |  ChatMember  |
-//  |              |
-//  ----------------
+type ChatMember struct {
+	// This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
+
+	// // ChatMemberOwner
+	// // ChatMemberAdministrator
+	// // ChatMemberMember
+	// // ChatMemberRestricted
+	// // ChatMemberLeft
+	// // ChatMemberBanned
+	ChatMember interface{} `json:"chat_member"`
+}
 
 type ChatMemberOwner struct {
 	// The member's status in the chat, always “creator”
@@ -1431,4 +1437,452 @@ type ChatMemberRestricted struct {
 
 	// True, if the user is allowed to send audios
 	CanSendAudios bool `json:"can_send_audios"`
+
+	// True, if the user is allowed to send documents
+	CanSendDocuments bool `json:"can_send_documents"`
+
+	// True, if the user is allowed to send photos
+	CanSendPhotos bool `json:"can_send_photos"`
+
+	// True, if the user is allowed to send videos
+	CanSendVideos bool `json:"can_send_videos"`
+
+	// True, if the user is allowed to send video notes
+	CanSendVideoNotes bool `json:"can_send_video_notes"`
+
+	// True, if the user is allowed to send voice notes
+	CanSendVoiceNotes bool `json:"can_send_voice_notes"`
+
+	// True, if the user is allowed to send polls
+	CanSendPolls bool `json:"can_send_polls"`
+
+	// True, if the user is allowed to send animations, games, stickers and use inline bots
+	CanSendOtherMessages bool `json:"can_send_other_messages"`
+
+	// True, if the user is allowed to add web page previews to their messages
+	CanAddWebPagePreviews bool `json:"can_add_web_page_previews"`
+
+	// True, if the user is allowed to change the chat title, photo and other settings
+	CanChangeInfo bool `json:"can_change_info"`
+
+	// True, if the user is allowed to invite new users to the chat
+	CanInviteUsers bool `json:"can_invite_users"`
+
+	// True, if the user is allowed to pin messages
+	CanPinMessages bool `json:"can_pin_messages"`
+
+	// True, if the user is allowed to create forum topics
+	CanManageTopics bool `json:"can_manage_topics"`
+
+	// Date when restrictions will be lifted for this user; unix time. If 0,
+	// then the user is restricted forever
+	UntilDate int `json:"until_date"`
 }
+
+type ChatMemberLeft struct {
+	// The member's status in the chat, always “left”
+	Status string `json:"status"`
+
+	// Information about the user
+	User *User `json:"user"`
+}
+
+type ChatMemberBanned struct {
+	// The member's status in the chat, always “kicked”
+	Status string `json:"status"`
+
+	// Information about the user
+	User *User `json:"user"`
+
+	// Date when restrictions will be lifted for this user; unix time. If 0,
+	// then the user is banned forever
+	UntilDate int `json:"until_date"`
+}
+
+type ChatMemberUpdated struct {
+	// Chat the user belongs to
+	Chat *Chat `json:"chat"`
+
+	// Performer of the action, which resulted in the change
+	From *From `json:"from"`
+
+	// Date the change was done in Unix time
+	Date int `json:"date"`
+
+	// Previous information about the chat member
+	OldChatMember *ChatMember `json:"old_chat_member"`
+
+	// New information about the chat member
+	NewChatMember *ChatMember `json:"new_chat_member"`
+
+	// Optional. Chat invite link, which was used by the user to join the chat;
+	// for joining by invite link events only.
+	InviteLink *ChatInviteLink `json:"invite_link"`
+
+	// Optional. True, if the user joined the chat via a chat folder invite link
+	ViaChatFolderInviteLink bool `json:"via_chat_folder_invite_link"`
+}
+
+type ChatJoinRequest struct {
+	// Chat to which the request was sent
+	Chat *Chat `json:"chat"`
+
+	// User that sent the join request
+	From *User `json:"from"`
+
+	// Identifier of a private chat with the user who sent the join request.
+	// This number may have more than 32 significant bits and some programming
+	// languages may have difficulty/silent defects in interpreting it.
+	// But it has at most 52 significant bits, so a 64-bit integer or
+	// double-precision float type are safe for storing this identifier.
+	// The bot can use this identifier for 24 hours to send messages until
+	// the join request is processed, assuming no other administrator contacted the user.
+	UserChatId int `json:"user_chat_id"`
+
+	// Date the request was sent in Unix time
+	Date int `json:"date"`
+
+	// Optional. Bio of the user.
+	Bio string `json:"bio"`
+
+	// Optional. Chat invite link that was used by the user to send the join request
+	InviteLink *ChtInviteLink `json:"invite_link`
+}
+
+type ChatPermissions struct {
+	// Optional. True, if the user is allowed to send text messages, contacts,
+	// invoices, locations and venues
+	CanSendMessages bool `json:"can_send_messages"`
+
+	// Optional. True, if the user is allowed to send audios
+	CanSendAudios bool `json:"can_send_audios"`
+
+	// Optional. True, if the user is allowed to send documents
+	CanSendDocuments bool `json:"can_send_documents"`
+
+	// Optional. True, if the user is allowed to send photos
+	CanSendPhotos bool `json:"can_send_photos"`
+
+	// Optional. True, if the user is allowed to send videos
+	CanSendVideos bool `json:"can_send_videos"`
+
+	// Optional. True, if the user is allowed to send video notes
+	CanSendVideoNotes bool `json:"can_send_video_notes"`
+
+	// Optional. True, if the user is allowed to send voice notes
+	CanSendVoiceNotes bool `json:"can_send_voice_notes"`
+
+	// Optional. True, if the user is allowed to send polls
+	CanSendPolls bool `json:"can_send_polls"`
+
+	// Optional. True, if the user is allowed to send animations, games,
+	// stickers and use inline bots
+	CanSendOtherMessages bool `json:"can_send_other_messages"`
+
+	// Optional. True, if the user is allowed to add web page previews to their messages
+	CanAddWebPagePreviews bool `json:"can_add_web_page_previews"`
+
+	// Optional. True, if the user is allowed to change the chat title,
+	// photo and other settings. Ignored in public supergroups
+	CanChangeInfo bool `json:"can_change_info"`
+
+	// Optional. True, if the user is allowed to invite new users to the chat
+	CanInviteUsers bool `json:"can_invite_users"`
+
+	// Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
+	CanPinMessages bool `json:"can_pin_messages"`
+
+	// Optional. True, if the user is allowed to create forum topics.
+	// If omitted defaults to the value of can_pin_messages
+	CanManageTopics bool `json:"can_manage_topics"`
+}
+
+type ChatLocation struct {
+	// The location to which the supergroup is connected. Can't be a live location.
+	Location *Location `json:"locations"`
+
+	// Location address; 1-64 characters, as defined by the chat owner
+	Address string `json:"address"`
+}
+
+type ForumTopic struct {
+	// Unique identifier of the forum topic
+	MessageThreadId int `json:"message_thread_id"`
+
+	// Name of the topic
+	Name string `json:"name"`
+
+	// Color of the topic icon in RGB format
+	IconColor int `json:"icon_color"`
+
+	//
+}
+
+type InputMediaVideo struct {
+	// Type of the result, must be video
+	Type string `json:"type"`
+
+	// File to send. Pass a file_id to send a file that exists on the Telegram servers
+	// (recommended), pass an HTTP URL for Telegram to get a file from the Internet,
+	// or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under
+	// <file_attach_name> name
+	Media string `json:"media"`
+
+	// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation
+	// for the file is supported server-side. The thumbnail should be in JPEG format
+	// and less than 200 kB in size. A thumbnail's width and height should not exceed 320.
+	// Ignored if the file is not uploaded using multipart/form-data.
+	// Thumbnails can't be reused and can be only uploaded as a new file, so you can pass
+	// “attach://<file_attach_name>”
+	// if the thumbnail was uploaded using multipart/form-data under <file_attach_name>
+	Thumbnail interface{} `json:"thumbnail"`
+
+	// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the video caption.
+	// See formatting options for more details.
+
+}
+
+type InputMediaAnimation struct {
+	// Type of the result, must be animation
+	Type string `json:"type"`
+
+	// File to send. Pass a file_id to send a file that exists on the Telegram servers
+	// (recommended), pass an HTTP URL for Telegram to get a file from the Internet,
+	// or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under
+	// <file_attach_name> name
+	Media string `json:"media"`
+
+	// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation
+	// for the file is supported server-side. The thumbnail should be in JPEG format
+	// and less than 200 kB in size. A thumbnail's width and height should not exceed 320.
+	// Ignored if the file is not uploaded using multipart/form-data.
+	// Thumbnails can't be reused and can be only uploaded as a new file,
+	// so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using
+	// multipart/form-data under <file_attach_name>
+	Thumbnail interface{} `json:"thumbnail"`
+
+	// Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the animation caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity
+
+	// Optional. Animation width
+	Width int `json:"width"`
+
+	// Optional. Animation height
+	Height int `json:"height"`
+
+	// Optional. Animation duration in seconds
+	Duration int `json"duration"`
+
+	// Optional. Pass True if the animation needs to be covered with a spoiler animation
+	HasSpoiler bool `json:"has_spoiler"`
+}
+
+type InputMediaAudio struct {
+	// Type of the result, must be audio
+	Type string `json:"type"`
+
+	// File to send. Pass a file_id to send a file that exists on the Telegram servers
+	// (recommended), pass an HTTP URL for Telegram to get a file from the Internet,
+	// or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data
+	// under <file_attach_name> name
+	Media string `json:"media"`
+
+	// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation
+	// for the file is supported server-side. The thumbnail should be in JPEG format
+	// and less than 200 kB in size. A thumbnail's width and height should not exceed 320.
+	// Ignored if the file is not uploaded using multipart/form-data.
+	// Thumbnails can't be reused and can be only uploaded as a new file, so you can pass
+	// “attach://<file_attach_name>”
+	// if the thumbnail was uploaded using multipart/form-data under <file_attach_name>
+	Thumbnail interface{} `json:"thumbnail"`
+
+	// Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the audio caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Duration of the audio in seconds
+	Duration int `json"duration"`
+
+	// Optional. Performer of the audio
+	Performer string `json:"performer"`
+
+	// Optional. Title of the audio
+	Title string `json:"title"`
+}
+
+type InputMediaDocument struct {
+	// Type of the result, must be document
+	Type string `json:"type"`
+
+	// File to send. Pass a file_id to send a file that exists on the Telegram servers
+	// (recommended), pass an HTTP URL for Telegram to get a file from the Internet,
+	// or pass “attach://<file_attach_name>”
+	// to upload a new one using multipart/form-data under <file_attach_name> name
+	Media string `json:"media"`
+
+	// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation
+	// for the file is supported server-side. The thumbnail should be in JPEG format
+	// and less than 200 kB in size. A thumbnail's width and height should not exceed 320.
+	// Ignored if the file is not uploaded using multipart/form-data.
+	// Thumbnails can't be reused and can be only uploaded as a new file,
+	// so you can pass “attach://<file_attach_name>”
+	// if the thumbnail was uploaded using multipart/form-data under <file_attach_name>
+	Thumbnail interface{} `json:"thumbnail"`
+
+	// Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the document caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Disables automatic server-side content type detection
+	// for files uploaded using multipart/form-data.
+	// Always True, if the document is sent as part of an album.
+	DisableContentTypeDetection bool `json:"disable_content_type_detection"`
+}
+
+// type SetMyCommands setMyName {
+// 	// A JSON-serialized list of bot commands to be set as the list of the bot's commands.
+// 	// At most 100 commands can be specified.
+// 	Commands [][]BotCommand `json:"commands"`
+
+// 	// A JSON-serialized object, describing scope of users
+// 	// for which the commands are relevant.
+// 	// Defaults to BotCommandScopeDefault.
+// 	Scope *BotCommandScope `json:"scope"`
+
+// 	// A two-letter ISO 639-1 language code. If empty,
+// 	// commands will be applied to all users from the given scope,
+// 	// for whose language there are no dedicated commands
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type DeleteMyCommands struct {
+// 	// A JSON-serialized object, describing
+// 	// scope of users for which the commands are relevant.
+// 	// Defaults to BotCommandScopeDefault.
+// 	Scope *BotCommandScope `json:"scope"`
+
+// 	// A two-letter ISO 639-1 language code.
+// 	// If empty, commands will be applied to all users from the given scope,
+// 	// for whose language there are no dedicated commands
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type GetMyCommands struct {
+// 	// A JSON-serialized object, describing scope of users.
+// 	// Defaults to BotCommandScopeDefault.
+// 	Scope *BotCommandScope `json:"scope"`
+
+// 	// A two-letter ISO 639-1 language code or an empty string
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type setMyName struct {
+// 	// New bot name; 0-64 characters. Pass an empty string to remove
+// 	// the dedicated name for the given language.
+// 	Name string `json:"name"`
+
+// 	// A two-letter ISO 639-1 language code.
+// 	// If empty, the name will be shown to all users for whose language there is no dedicated name.
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type GetMyName struct {
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type SetMyDescription struct {
+// 	// New bot description; 0-512 characters.
+// 	// Pass an empty string to remove the dedicated description for the given language.
+// 	Description string `json:"description"`
+
+// 	// A two-letter ISO 639-1 language code. If empty, the description
+// 	// will be applied to all users for whose language there is no dedicated description.
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type GetMyDescription struct {
+// 	// A two-letter ISO 639-1 language code or an empty string
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type SetMyShortDescription struct {
+// 	// New short description for the bot; 0-120 characters.
+// 	// Pass an empty string to remove the dedicated short description for the given language.
+// 	ShortDescription int `json:"short_description"`
+
+// 	// A two-letter ISO 639-1 language code. If empty, the short description
+// 	// will be applied to all users for whose language there is no dedicated short description.
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type GetMyShortDescription struct {
+// 	// A two-letter ISO 639-1 language code or an empty string
+// 	LanguageCode string `json:"language_code"`
+// }
+
+// type SetChatMenuButton struct {
+// 	// Unique identifier for the target private chat.
+// 	// If not specified, default bot's menu button will be changed
+// 	ChatId int `json:"chat_id"`
+
+// 	// A JSON-serialized object for the bot's new menu button.
+// 	// Defaults to MenuButtonDefault
+// 	MenuButton *MenuButton `json:"menu_button"`
+// }
+
+// type SetChatMenuButton struct {
+// 	// Unique identifier for the target private chat.
+// 	// If not specified, default bot's menu button will be changed
+// 	ChatId int `json:"chat_id"`
+
+// 	// A JSON-serialized object for the bot's new menu button.
+// 	// Defaults to MenuButtonDefault
+// 	MenuButton *MenuButton `json:"menu_button"`
+// }
+
+// type GetChatMenuButton struct {
+// 	// Unique identifier for the target private chat.
+// 	// If not specified, default bot's menu button will be returned
+// 	ChatId int `json:"chat_id"`
+// }
+
+// type SetMyDefaultAdministratorRights struct {
+// 	// A JSON-serialized object describing new default administrator rights.
+// 	// If not specified, the default administrator rights will be cleared.
+// 	Rights *ChatAdministratorRights `json:"rights"`
+
+// 	// Pass True to change the default administrator rights of the bot in channels. Otherwise,
+// 	// the default administrator rights of the bot for groups and supergroups will be changed.
+// 	ForChannels bool `json:"for_channels"`
+// }
+
+// type GetMyDefaultAdministratorRights struct {
+// 	// Pass True to get default administrator rights of the bot in channels.
+// 	// Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+// 	ForChannels bool `json:"for_channels"`
+// }
