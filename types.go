@@ -1615,7 +1615,189 @@ type ForumTopic struct {
 	// Color of the topic icon in RGB format
 	IconColor int `json:"icon_color"`
 
-	//
+	// Optional. Unique identifier of the custom emoji shown as the topic icon
+	IconCustomEmojiId string `json:"icon_custom_emoji_id"`
+}
+
+type BotCommand struct {
+	// Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
+	Command string `json:"command"`
+
+	// Description of the command; 1-256 characters.
+	Description string `json:"description"`
+}
+
+type BotCommandScopeDefault struct {
+	// Scope type, must be default
+	Type string `json:"type"`
+}
+
+type BotCommandScopeAllPrivateChats struct {
+	// Scope type, must be all_private_chats
+	Type string `json:"type"`
+}
+
+type BotCommandScopeAllGroupChats struct {
+	// Scope type, must be all_group_chats
+	Type string `json:"type"`
+}
+
+type BotCommandScopeAllChatAdministrators struct {
+	// Scope type, must be all_chat_administrators
+	Type string `json:"type"`
+}
+
+type BotCommandScopeChat struct {
+	// Scope type, must be chat
+	Type string `json:"type"`
+
+	// Unique identifier for the target chat or username of the target supergroup
+	// (in the format @supergroupusername)
+	ChatId interface{} `json:"chat_id"`
+}
+
+type BotCommandScopeChatAdministrators struct {
+	// Scope type, must be chat
+	Type string `json:"type"`
+
+	// Unique identifier for the target chat or username of the target supergroup
+	// (in the format @supergroupusername)
+	ChatId interface{} `json:"chat_id"`
+}
+
+type BotCommandScopeChatMember struct {
+	// Scope type, must be chat_member
+	Type string `json:"type"`
+
+	// Unique identifier for the target chat or username of the target supergroup
+	// (in the format @supergroupusername)
+	ChatId interface{} `json:"chat_id"`
+
+	// Unique identifier of the target user
+	UserId int64 `json:"user_id"`
+}
+
+type BotName struct {
+	// The bot's name
+	Name string `json:"name"`
+}
+
+type BotDescription struct {
+	// The bot's description
+	Description string `json:"description"`
+}
+
+type BotShortDescription struct {
+	// The bot's short description
+	ShortDescription string `json:"short_description"`
+}
+
+type MenuButtonCommands struct {
+	// Type of the button, must be commands
+	Type string `json:"type"`
+}
+
+type MenuButtonWebApp struct {
+	// Type of the button, must be web_app
+	Type string `json:"type"`
+
+	// Text on the button
+	Text string `json:"text"`
+
+	// Description of the Web App that will be launched when the user presses the button.
+	// The Web App will be able to send an arbitrary message on behalf
+	// of the user using the method answerWebAppQuery
+	WebApp *WedAppInfo `json:"web_app"`
+}
+
+type MenuButtonDefault struct {
+	// Type of the button, must be default
+	Type string `json:"type"`
+}
+
+type ResponseParameters struct {
+	// Optional. The group has been migrated to a supergroup with the specified identifier.
+	// This number may have more than 32 significant bits and some programming
+	// languages may have difficulty/silent defects in interpreting it.
+	// But it has at most 52 significant bits, so a signed 64-bit
+	// integer or double-precision float type are safe for storing this identifier.
+	MigrateToChatId int `json:"migrate_to_chat_id"`
+
+	// Optional. In case of exceeding flood control,
+	// the number of seconds left to wait before the request can be repeated
+	RetryAfter int `json:"retry_after"`
+}
+
+type InputMediaPhoto struct {
+	// Type of the result, must be video
+	Type string `json:"type"`
+
+	// File to send. Pass a file_id to send a file that exists on the Telegram servers
+	// (recommended), pass an HTTP URL for Telegram to get a file from the Internet,
+	// or pass “attach://<file_attach_name>”
+	// to upload a new one using multipart/form-data under <file_attach_name> name
+	Media string `json:"media"`
+
+	// Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the photo caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Pass True if the photo needs to be covered with a spoiler animation
+	HasSpoiler bool `json:"has_spoiler"`
+}
+
+type InputMediaVideo struct {
+	// Type of the result, must be video
+	Type string `json:"type"`
+
+	// File to send. Pass a file_id to send a file that exists
+	// on the Telegram servers (recommended), pass an HTTP URL for Telegram
+	// to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a
+	// new one using multipart/form-data under <file_attach_name> name
+	Media string `json:"media"`
+
+	// Optional. Thumbnail of the file sent;
+	// can be ignored if thumbnail generation for the file is
+	// supported server-side. The thumbnail should be in JPEG format
+	// and less than 200 kB in size. A thumbnail's width and height
+	// should not exceed 320. Ignored if the file is not uploaded using
+	// multipart/form-data. Thumbnails can't be reused and can be only
+	// uploaded as a new file, so you can pass “attach://<file_attach_name>”
+	// if the thumbnail was uploaded using multipart/form-data under <file_attach_name>
+	Thumbnail interface{} `json:"thumbnail"`
+
+	// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the video caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Video width
+	Width int `json:"width"`
+
+	// Optional. Video height
+	Height int `json:"height"`
+
+	// Optional. Video duration in seconds
+	Duration int `json:"duration"`
+
+	// Optional. Pass True if the uploaded video is suitable for streaming
+	SupportsStreaming bool `json:"supports_streaming"`
+
+	// Optional. Pass True if the video needs to be covered with a spoiler animation
+	HasSpoiler bool `json:"has_spoiler"`
 }
 
 type InputMediaVideo struct {
@@ -1642,7 +1824,24 @@ type InputMediaVideo struct {
 
 	// Optional. Mode for parsing entities in the video caption.
 	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
 
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Animation width
+	Width int `json:"width"`
+
+	// Optional. Animation height
+	Height int `json:"height"`
+
+	// Optional. Animation duration in seconds
+	Duration int `json:"duration"`
+
+	// Optional. Pass True if the animation needs
+	// to be covered with a spoiler animation
+	HasSpoiler bool `json:"has_spoiler"`
 }
 
 type InputMediaAnimation struct {
@@ -1673,7 +1872,7 @@ type InputMediaAnimation struct {
 
 	// Optional. List of special entities that appear in the caption,
 	// which can be specified instead of parse_mode
-	CaptionEntities []MessageEntity
+	CaptionEntities []MessageEntity `json:"caption_entities"`
 
 	// Optional. Animation width
 	Width int `json:"width"`
