@@ -1546,7 +1546,7 @@ type ChatJoinRequest struct {
 	Bio string `json:"bio"`
 
 	// Optional. Chat invite link that was used by the user to send the join request
-	InviteLink *ChtInviteLink `json:"invite_link`
+	InviteLink *ChatInviteLink `json:"invite_link`
 }
 
 type ChatPermissions struct {
@@ -1707,7 +1707,7 @@ type MenuButtonWebApp struct {
 	// Description of the Web App that will be launched when the user presses the button.
 	// The Web App will be able to send an arbitrary message on behalf
 	// of the user using the method answerWebAppQuery
-	WebApp *WedAppInfo `json:"web_app"`
+	WebApp *WebAppInfo `json:"web_app"`
 }
 
 type MenuButtonDefault struct {
@@ -1750,53 +1750,6 @@ type InputMediaPhoto struct {
 	CaptionEntities []MessageEntity `json:"caption_entities"`
 
 	// Optional. Pass True if the photo needs to be covered with a spoiler animation
-	HasSpoiler bool `json:"has_spoiler"`
-}
-
-type InputMediaVideo struct {
-	// Type of the result, must be video
-	Type string `json:"type"`
-
-	// File to send. Pass a file_id to send a file that exists
-	// on the Telegram servers (recommended), pass an HTTP URL for Telegram
-	// to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a
-	// new one using multipart/form-data under <file_attach_name> name
-	Media string `json:"media"`
-
-	// Optional. Thumbnail of the file sent;
-	// can be ignored if thumbnail generation for the file is
-	// supported server-side. The thumbnail should be in JPEG format
-	// and less than 200 kB in size. A thumbnail's width and height
-	// should not exceed 320. Ignored if the file is not uploaded using
-	// multipart/form-data. Thumbnails can't be reused and can be only
-	// uploaded as a new file, so you can pass “attach://<file_attach_name>”
-	// if the thumbnail was uploaded using multipart/form-data under <file_attach_name>
-	Thumbnail interface{} `json:"thumbnail"`
-
-	// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
-	Caption string `json:"caption"`
-
-	// Optional. Mode for parsing entities in the video caption.
-	// See formatting options for more details.
-	ParseMode string `json:"parse_mode"`
-
-	// Optional. List of special entities that appear in the caption,
-	// which can be specified instead of parse_mode
-	CaptionEntities []MessageEntity `json:"caption_entities"`
-
-	// Optional. Video width
-	Width int `json:"width"`
-
-	// Optional. Video height
-	Height int `json:"height"`
-
-	// Optional. Video duration in seconds
-	Duration int `json:"duration"`
-
-	// Optional. Pass True if the uploaded video is suitable for streaming
-	SupportsStreaming bool `json:"supports_streaming"`
-
-	// Optional. Pass True if the video needs to be covered with a spoiler animation
 	HasSpoiler bool `json:"has_spoiler"`
 }
 
