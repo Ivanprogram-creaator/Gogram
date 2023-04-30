@@ -1331,18 +1331,6 @@ type ChatAdministratorRights struct {
 	CanManageTopics bool `json:"can_manage_topics"`
 }
 
-type ChatMember struct {
-	// This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
-
-	// // ChatMemberOwner
-	// // ChatMemberAdministrator
-	// // ChatMemberMember
-	// // ChatMemberRestricted
-	// // ChatMemberLeft
-	// // ChatMemberBanned
-	ChatMember interface{} `json:"chat_member"`
-}
-
 type ChatMemberOwner struct {
 	// The member's status in the chat, always “creator”
 	Status string `json:"status"`
@@ -1510,10 +1498,10 @@ type ChatMemberUpdated struct {
 	Date int `json:"date"`
 
 	// Previous information about the chat member
-	OldChatMember *ChatMember `json:"old_chat_member"`
+	OldChatMember interface{} `json:"old_chat_member"`
 
 	// New information about the chat member
-	NewChatMember *ChatMember `json:"new_chat_member"`
+	NewChatMember interface{} `json:"new_chat_member"`
 
 	// Optional. Chat invite link, which was used by the user to join the chat;
 	// for joining by invite link events only.
