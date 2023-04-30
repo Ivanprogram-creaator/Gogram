@@ -1257,7 +1257,7 @@ type ChatInviteLink struct {
 	InviteLink string `json:"invite_link"`
 
 	// Creator of the link
-	Creator *Creator `json:"creator"`
+	Creator *User `json:"creator"`
 
 	// True, if users joining the chat via the link need to be approved
 	// by chat administrators
@@ -1492,7 +1492,7 @@ type ChatMemberUpdated struct {
 	Chat *Chat `json:"chat"`
 
 	// Performer of the action, which resulted in the change
-	From *From `json:"from"`
+	From *User `json:"from"`
 
 	// Date the change was done in Unix time
 	Date int `json:"date"`

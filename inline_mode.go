@@ -55,7 +55,7 @@ type InlineQueryResultArticle struct {
 	Title string `json:"title"`
 
 	// Content of the message to be sent
-	InputMessageContent *InputMessageContent `json:"input_message_content"`
+	InputMessageContent interface{} `json:"input_message_content"`
 
 	// Optional. Inline keyboard attached to the message
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
@@ -119,7 +119,7 @@ type InlineQueryResultPhoto struct {
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
 
 	// Optional. Content of the message to be sent instead of the photo
-	InputMessageContent *InputMessageContent `json:"input_message_content"`
+	InputMessageContent interface{} `json:"input_message_content"`
 }
 
 type InlineQueryResultGif struct {
@@ -165,14 +165,169 @@ type InlineQueryResultGif struct {
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
 
 	// Optional. Content of the message to be sent instead of the GIF animation
-	InputMessageContent *InputMessageContent `json:"input_message_content"`
+	InputMessageContent interface{} `json:"input_message_content"`
 }
 
 type InlineQueryResultMpeg4Gif struct {
 	// Type of the result, must be mpeg4_gif
-	//
-	//
-	//
+	Type string `json:"type"`
+
+	// Unique identifier for this result, 1-64 bytes
+	Id string `json:"id"`
+
+	// A valid URL for the MPEG4 file. File size must not exceed 1MB
+	Mpeg4Url string `json:"mpeg4_url"`
+
+	// Optional. Video width
+	Mpeg4Width int `json:"mpeg4_width"`
+
+	// Optional. Video height
+	Mpeg4Height int `json:"mpeg4_height"`
+
+	// Optional. Video duration in seconds
+	Mpeg4Duration int `json:"mpeg4_duration"`
+
+	// URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
+	ThumbnailUrl string `json:"thumbnail_url"`
+
+	// Optional. MIME type of the thumbnail, must be one of “image/jpeg”,
+	// “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+	ThumbnailMimeType string `json:"thumbnail_mime_type"`
+
+	// Optional. Title for the result
+	Title string `json:"title"`
+
+	// Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the caption. See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Inline keyboard attached to the message
+	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
+
+	// Optional. Content of the message to be sent instead of the video animation
+	InputMessageContent interface{} `json:"input_message_content"`
+}
+
+type InlineQueryResultCachedSticker struct {
+	// Type of the result, must be sticker
+	Type string `json:"type"`
+
+	// Unique identifier for this result, 1-64 bytes
+	Id string `json:"id"`
+
+	// A valid file identifier of the sticker
+	StickerFileId string `json:"sticker_file_id"`
+
+	// Optional. Inline keyboard attached to the message
+	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
+
+	// Optional. Content of the message to be sent instead of the sticker
+	InputMessageContent interface{} `json:"input_message_content"`
+}
+
+type InlineQueryResultCachedDocument struct {
+	// Type of the result, must be document
+	Type string `json:"type"`
+
+	// Unique identifier for this result, 1-64 bytes
+	Id string `json:"id"`
+
+	// Title for the result
+	Title string `json:"title"`
+
+	// A valid file identifier for the file
+	DocumentFileId string `json:"document_file_id"`
+
+	// Optional. Short description of the result
+	Description string `json:"description"`
+
+	// Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the document caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Inline keyboard attached to the message
+	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
+
+	// Optional. Content of the message to be sent instead of the file
+	InputMessageContent interface{} `json:"input_message_content"`
+}
+
+type InlineQueryResultCachedVideo struct {
+	// Type of the result, must be video
+	Type string `json:"type"`
+
+	// Unique identifier for this result, 1-64 bytes
+	Id string `json:"id"`
+
+	// A valid file identifier for the video file
+	VideoFileId string `json:"video_file_id"`
+
+	// Title for the result
+	Title string `json:"title"`
+
+	// Optional. Short description of the result
+	Description string `json:"description"`
+
+	// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the video caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Inline keyboard attached to the message
+	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
+
+	// Optional. Content of the message to be sent instead of the video
+	InputMessageContent interface{} `json:"input_message_content"`
+}
+
+type InlineQueryResultCachedVoice struct {
+	// Type of the result, must be voice
+	Type string `json:"type"`
+
+	// Unique identifier for this result, 1-64 bytes
+	Id string `json:"id"`
+
+	// A valid file identifier for the voice message
+	VoiceFileId string `json:"voice_file_id"`
+
+	// Voice message title
+	Title string `json:"title"`
+
+	// Optional. Caption, 0-1024 characters after entities parsing
+	Caption string `json:"caption"`
+
+	// Optional. Mode for parsing entities in the voice message caption.
+	// See formatting options for more details.
+	ParseMode string `json:"parse_mode"`
+
+	// Optional. List of special entities that appear in the caption,
+	// which can be specified instead of parse_mode
+	CaptionEntities []MessageEntity `json:"caption_entities"`
+
+	// Optional. Inline keyboard attached to the message
+	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
+
+	// Optional. Content of the message to be sent instead of the voice message
+	InputMessageContent interface{} `json:"input_message_content"`
 }
 
 type InlineQueryResultCachedAudio struct {
@@ -194,7 +349,7 @@ type InlineQueryResultCachedAudio struct {
 
 	// Optional. List of special entities that appear in the caption,
 	// which can be specified instead of parse_mode
-	CaptionEntities []MessageEntity
+	CaptionEntities []MessageEntity `json:"caption_entities"`
 
 	// Optional. Inline keyboard attached to the message
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup"`
