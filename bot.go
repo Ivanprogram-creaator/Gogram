@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-
 )
 
 // Creates new bot
@@ -88,7 +87,7 @@ func (bot *Bot) Close() (err error) {
 }
 
 func main() {
-	bot, err := NewBot("5935310962:AAFr9bXJvOBU4YTXasv_3bH0xHeal7dWdk")
+	bot, err := NewBot(token())
 	if err != nil {
 		fmt.Println(err)
 	} else {
