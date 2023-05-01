@@ -1,11 +1,11 @@
 package main
 
-type GetMe struct {
+type Response struct {
 	// True, if bot or user has been founded
 	Ok bool `json:"ok"`
 
 	// struct User
-	Result interface{} `json:"result"`
+	Result map[string]interface{} `json:"result"`
 
 	// Error code
 	ErrorCode int `json:"error_code"`
