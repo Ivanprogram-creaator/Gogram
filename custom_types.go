@@ -5,5 +5,11 @@ type GetMe struct {
 	Ok bool `json:"ok"`
 
 	// struct User
-	Result *User `json:"result"`
+	Result interface{} `json:"result"`
+
+	// Error code
+	ErrorCode int `json:"error_code"`
+
+	// Error code description
+	Description string `json:"description"`
 }

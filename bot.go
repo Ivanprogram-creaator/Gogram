@@ -15,6 +15,7 @@ func DoRequest(Token, Method string, data any) (responseBody []byte, err error) 
 		return
 	}
 	req, err := http.NewRequest("POST", fmt.Sprintf("https://api.telegram.org/bot%s/%s", Token, Method), bytes.NewBuffer(json_data))
+	fmt.Println(fmt.Sprintf("https://api.telegram.org/bot%s/%s", Token, Method))
 	if err != nil {
 		return
 	}
@@ -27,35 +28,19 @@ func DoRequest(Token, Method string, data any) (responseBody []byte, err error) 
 	return
 }
 
-func NewBuffer(json_data []byte) {
-	panic("unimplemented")
-}
-
 type Bot struct {
 	Token string
+	Debug bool
 }
 
 func NewBot(Token string) (*Bot, error) {
-	bot := Bot{Token}
-	if is_bot, err := BotCheck(&bot); !is_bot && err != nil {
-		return nil, err
-	}
-	return &Bot{Token}, nil
+	bot := Bot{Token, false}
+	_, err := bot.GetMe()
+	return &bot, err
 }
 
-func BotCheck(bot *Bot) (bool, error) {
-	user, err := bot.GetMe()
-	if err != nil {
-		return false, err
-	}
-	if !user.Is_Bot {
-		return false, fmt.Errorf("token false")
-	}
-	return true, err
-}
-
-func (bot *Bot) GetMe() (*User, error) {
-	responseBody, err := DoRequest(bot.Token, "getMe", nil)
+func (bot *Bot) GetMe() (interface{}, error) {
+	responseBody, err := DoRequest(bot.Token, "logOut", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +50,7 @@ func (bot *Bot) GetMe() (*User, error) {
 		return nil, err
 	}
 	if !user.Ok {
-		return nil, fmt.Errorf("token false")
+		return nil, fmt.Errorf("error_code: %d, description: %s", user.ErrorCode, user.Description)
 	}
 	return user.Result, err
 }
